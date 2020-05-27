@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>TEXTS</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Text</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in texts %}
+        <tr>
+          <th>{{ i.id }}</th>
+          <td>{{ i.title }}</td>
+          <td>{{ i.text}}</td>
+          <td><a href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

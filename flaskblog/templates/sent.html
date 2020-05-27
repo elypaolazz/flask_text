@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>TEXTS</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Sentence</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in sent %}
+        <tr>
+          <th>{{ i.id }}</th>
+          <td>{{ i.sentence }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
