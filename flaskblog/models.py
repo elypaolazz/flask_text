@@ -43,7 +43,7 @@ class Post(db.Model):
 
 class Texts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
     text = db.Column(db.Text, nullable=False)
     sentences = db.relationship('Sent', backref='owner', lazy=True)
 

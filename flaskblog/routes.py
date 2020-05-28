@@ -40,12 +40,12 @@ def input_text():
             db.session.add(sent)
             db.session.commit()
         flash('Your post has been created', 'succes')
-        return redirect(url_for('home'))
+        return redirect(url_for('view_text'))
     return render_template('input_text.html', title='Input text', form=form, legend='Input text')
 
 @app.route("/view_text", methods=['GET', 'POST'])
 def view_text():
-    texts = Texts.query.all()
+    texts = Texts.query.order_by(Texts.id.desc())
     return render_template('view_text.html', title='Input text', texts=texts, legend='View text')
 
 @app.route("/view_text/<int:texts_id>", methods=['GET', 'POST'])
