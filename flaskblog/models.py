@@ -3,6 +3,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flaskblog import db, login_manager, app
 from flask_login import UserMixin
 
+#per manipolare i dati:
+#python - form flaskblog import db - from flaskblog.models import User, Post, ecc...
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -52,8 +54,15 @@ class Texts(db.Model):
 
 class Sent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    sentence = db.Column(db.String(100), nullable=False)
+    sentence = db.Column(db.String(500), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('texts.id'), nullable=False)
+    word = db.relationship('Words', backref='sentowner', lazy=True)
 
     def __repr__(self):
         return f"Sent('{self.sentence}')"
+
+class Words(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    word = db.Column(db.String(100), nullable=False)
+    pos = db.Column(db.String(100), nullable=False)
+    sentowner_id = db.Column(db.Integer, db.ForeignKey('sent.id'), nullable=False)

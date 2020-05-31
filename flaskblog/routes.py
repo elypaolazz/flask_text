@@ -4,12 +4,12 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog import app, db, bcrypt, mail
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, Input_textForm
-from flaskblog.models import User, Post, Texts, Sent
+from flaskblog.models import User, Post, Texts, Sent, Words
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message 
 import nltk
 from nltk.tokenize import sent_tokenize
-
+from flaskblog.italian_resources import tools_ita
 
 @app.route("/")
 @app.route("/home")
@@ -21,7 +21,8 @@ def home():
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title='Input text')
+    return render_template('about.html', title='Input text')  
+    
 
 @app.route("/input_text", methods=['GET', 'POST'])
 def input_text():
@@ -34,12 +35,21 @@ def input_text():
         #     db.session.add(sent)
         db.session.commit()
         # last = Texts.
-        last= Texts.query.order_by(Texts.id.desc()).first()
+        last = Texts.query.order_by(Texts.id.desc()).first()
         for i in (sent_tokenize(last.text)):
             sent = Sent(sentence=i, owner_id=last.id)
             db.session.add(sent)
             db.session.commit()
-        flash('Your post has been created', 'succes')
+            # last_sent = Sent.query.order_by(Sent.id.desc()).first()
+            tokens_pos =([tools_ita.perc_tagger.tag(tools_ita.tokenizza(sent)) for sent in tools_ita.sent_tokenizza(i)])
+            for item in tokens_pos[0]:
+                token = item[0]
+                pos = item[1]
+                word = Words(word=token, pos=pos, sentowner_id=sent.id)
+                db.session.add(word)
+                db.session.commit()
+            
+        flash('You insert a text!', 'succes')
         return redirect(url_for('view_text'))
     return render_template('input_text.html', title='Input text', form=form, legend='Input text')
 
@@ -54,6 +64,20 @@ def sent(texts_id):
     sent = Sent.query.filter_by(owner=text)
     return render_template('sent.html', title=text.title, text=text, sent=sent)
 
+@app.route("/view_words/<int:sent_id>", methods=['GET', 'POST'])
+def words(sent_id):
+    sent = Sent.query.get_or_404(sent_id)
+    words = Words.query.filter_by(sentowner=sent)
+    return render_template('words.html', title='Words', sent=sent, words=words)
+
+@app.route("/view_text/<int:texts_id>/delete", methods=['POST'])
+@login_required
+def delete_text(texts_id):
+    text = Texts.query.get_or_404(texts_id)
+    db.session.delete(text)
+    db.session.commit()
+    return redirect(url_for('view_text'))
+    flash('Your text has been deleted!', 'success')
 
 
 @app.route("/register", methods=['GET', 'POST'])

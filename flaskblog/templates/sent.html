@@ -1,11 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>TEXTS</h2>
+<h2>SENTENCES</h2>
+<!-- <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> -->
 <table class="table">
     <thead>
       <tr>
         <th scope="col">id</th>
         <th scope="col">Sentence</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -13,8 +15,28 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.sentence }}</td>
+          <td><a href="{{ url_for('words', sent_id=i.id) }}">View words and POS</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="deleteModalLabel">Delete Text?</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <form action="{{ url_for('delete_text', texts_id=text.id) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete">
+      </form>
+      </div>
+  </div>
+  </div>
+</div>
 {% endblock content %}
