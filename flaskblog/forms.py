@@ -75,7 +75,15 @@ class Input_textForm(FlaskForm):
 
 class Edit_words(FlaskForm):
     edit  = SelectField('POS', [DataRequired()],
-                        choices=[('V', 'V'),
-                                 ('S', 'S'),
+                        choices=[('A', 'A'),
+                                 ('CC', 'CC'),
                                  ('E', 'E'),
-                                 ('SP', 'SP')])
+                                 ('EA', 'EA'),
+                                 ('FC', 'FC'),
+                                 ('FF', 'FF'),
+                                 ('FS', 'FS'),
+                                 ('RI', 'RI'),
+                                 ('RD', 'RD'),
+                                 ('S', 'S'),
+                                 ('SP', 'SP'),
+                                 ('V', 'V'),])

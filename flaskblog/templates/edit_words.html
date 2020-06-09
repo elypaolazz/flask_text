@@ -4,7 +4,7 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">id</th>
+        <th scope="col">ID</th>
         <th scope="col">Token</th>
         <th scope="col">Pos</th>
         <th scope="col">Edit</th>
@@ -21,7 +21,7 @@
             
             <form action="{{ url_for('update_pos', words_id=i.id) }}" method="POST">
                 {{ form.csrf_token }}
-                {{ form.edit }}
+                {{ form.edit(class="btn btn-primary dropdown-toggle") }}
                 <input type="submit" class="btn btn-outline-info" value="Edit">
             </form>
           </td>

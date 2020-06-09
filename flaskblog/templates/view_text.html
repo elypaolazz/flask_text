@@ -4,7 +4,7 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">id</th>
+        <th scope="col">ID</th>
         <th scope="col">Title</th>
         <th scope="col">Text</th>
         <th scope="col">Action</th>
@@ -15,7 +15,7 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.title }}</td>
-          <td>{{ i.text}}</td>
+          <td>{{ i.text[0:160] }}. . .</td>
           <td><a href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a></td>
         </tr>
         {% endfor %}
