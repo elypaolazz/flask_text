@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>EDIT WORDS</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Token</th>
+        <th scope="col">Pos</th>
+        <th scope="col">Edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in words %}
+        <tr>
+          <th>{{ i.id }}</th>
+          <td>{{ i.word }}</td>
+          <td>{{ i.pos }}</td>
+          <td>
+            
+            <form action="{{ url_for('update_pos', words_id=i.id) }}" method="POST">
+                {{ form.csrf_token }}
+                {{ form.edit }}
+                <input type="submit" class="btn btn-outline-info" value="Edit">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>         
+{% endblock content %}
