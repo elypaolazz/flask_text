@@ -15,7 +15,9 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.sentence }}</td>
-          <td><a href="{{ url_for('words', sent_id=i.id) }}">View words and POS</a></td>
+          <td><a href="{{ url_for('words', sent_id=i.id) }}">View Words</a>
+            <a href="{{ url_for('edit_words', sent_id=i.id) }}">Edit Words</a>
+          </td>
         </tr>
         {% endfor %}
     </tbody>

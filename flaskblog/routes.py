@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from flaskblog import app, db, bcrypt, mail
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, Input_textForm
-from flaskblog.models import User, Post, Texts, Sent, Words
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, Input_textForm, Edit_words   
+from flaskblog.models import User, Post, Texts, Sent, Words, Tags
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message 
 import nltk
@@ -34,7 +34,6 @@ def input_text():
         #     sent = Sent(sentence=i, owner_id=text.id)
         #     db.session.add(sent)
         db.session.commit()
-        # last = Texts.
         last = Texts.query.order_by(Texts.id.desc()).first()
         for i in (sent_tokenize(last.text)):
             sent = Sent(sentence=i, owner_id=last.id)
@@ -69,6 +68,40 @@ def words(sent_id):
     sent = Sent.query.get_or_404(sent_id)
     words = Words.query.filter_by(sentowner=sent)
     return render_template('words.html', title='Words', sent=sent, words=words)
+
+@app.route("/edit_words/<int:sent_id>", methods=['GET', 'POST'])
+def edit_words(sent_id):
+    sent = Sent.query.get_or_404(sent_id)
+    words = Words.query.filter_by(sentowner=sent)
+    form = Edit_words()
+    
+    # if form.validate_on_submit():
+    #     # words.pos = form.edit.data
+    #     # db.session.commit()
+    #     print(form.edit.data)
+    #     pos = Tags(tag=form.edit.data)
+    #     db.session.add(pos)
+    #     db.session.commit()
+    #     last = Tags.query.order_by(Tags.id.desc()).first()
+    #     current_words.pos = last.tag
+    #     print(words.pos)
+    #     db.session.commit()
+    return render_template('edit_words.html', title='Words', sent=sent, words=words, form=form)
+
+@app.route("/edit_words/<int:words_id>/update", methods=['GET', 'POST'])
+def update_pos(words_id):
+    words = Words.query.get_or_404(words_id)
+    form = Edit_words()
+    if form.validate_on_submit(): 
+        print(words.word)
+        words.pos = form.edit.data
+        db.session.commit()
+        flash('Pos has been updated!', 'success')
+        return redirect(url_for('edit_words', words_id=words.id, sent_id=words.sentowner.id))
+    elif request.method == 'GET':
+        form.edit.data = words.pos
+    return render_template('edit_words.html', title='Words', sent=sent, words=words, form=form)
+
 
 @app.route("/view_text/<int:texts_id>/delete", methods=['POST'])
 @login_required

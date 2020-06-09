@@ -66,3 +66,8 @@ class Words(db.Model):
     word = db.Column(db.String(100), nullable=False)
     pos = db.Column(db.String(100), nullable=False)
     sentowner_id = db.Column(db.Integer, db.ForeignKey('sent.id'), nullable=False)
+
+class Tags(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag =  db.Column(db.String(20), nullable=False)
+    

@@ -21,9 +21,9 @@
             <div class="form-group">
                 {{ form.text.label(class="form-control-label") }}
                 {% if form.text.errors %}
-                    {{ form.content(class="form-control form-control-lg is-invalid") }}
+                    {{ form.text(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
+                        {% for error in form.text.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
@@ -38,9 +38,5 @@
         </div>
     </form>
 </div>
-<div class="border-top pt-3">
-    <small class="text-muted">
-        Already have an Account? <a class="ml-2" href="{{ url_for('login') }}">Singn In</a>
-    </small>
-</div>
+
 {% endblock content %}

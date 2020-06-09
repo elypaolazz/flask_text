@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flaskblog.models import User
+from flaskblog.models import User, Words, Tags
+from wtforms_sqlalchemy.fields import QuerySelectField
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -69,3 +70,12 @@ class Input_textForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
     text = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Done')
+
+
+
+class Edit_words(FlaskForm):
+    edit  = SelectField('POS', [DataRequired()],
+                        choices=[('V', 'V'),
+                                 ('S', 'S'),
+                                 ('E', 'E'),
+                                 ('SP', 'SP')])
