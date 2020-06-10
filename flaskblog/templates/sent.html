@@ -1,10 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>SENTENCES</h2>
+<h1 class="text-center , font-italic">{{ title }}</h1><br>
+<h2 class="font-weight-light">SENTENCES</h2>
 <!-- <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> -->
 <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col" style="width: 72%;">Sentence</th>
         <th scope="col" colspan="2">Action</th>

@@ -67,12 +67,16 @@ def sent(texts_id):
 def words(sent_id):
     sent = Sent.query.get_or_404(sent_id)
     words = Words.query.filter_by(sentowner=sent)
-    return render_template('words.html', title='Words', sent=sent, words=words)
+    text = Texts.query.filter_by(id=sent.owner_id)
+    # text = Texts.query.filter_by(id=sent.owner_id)
+    # print(text)
+    return render_template('words.html', sent=sent, words=words, text=text)
 
 @app.route("/edit_words/<int:sent_id>", methods=['GET', 'POST'])
 def edit_words(sent_id):
     sent = Sent.query.get_or_404(sent_id)
     words = Words.query.filter_by(sentowner=sent)
+    text = Texts.query.filter_by(id=sent.owner_id)
     form = Edit_words()
     
     # if form.validate_on_submit():
@@ -86,7 +90,7 @@ def edit_words(sent_id):
     #     current_words.pos = last.tag
     #     print(words.pos)
     #     db.session.commit()
-    return render_template('edit_words.html', title='Words', sent=sent, words=words, form=form)
+    return render_template('edit_words.html', title='Words', sent=sent, words=words, form=form, text=text)
 
 @app.route("/edit_words/<int:words_id>/update", methods=['GET', 'POST'])
 def update_pos(words_id):

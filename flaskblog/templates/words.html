@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>WORDS</h2>
+{% for i in text %}
+<h1 class="text-center , font-italic">{{ i.title }}</h1><br>
+{% endfor %}
+<h2 class="font-weight-light">WORDS</h2>
 <table class="table table-bordered" style="width: 80%">
     <thead>
-      <tr>
+      <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col">Token</th>
         <th scope="col">Pos</th>

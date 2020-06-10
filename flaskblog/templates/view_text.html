@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>TEXTS</h2>
+<h1 class="text-center">TEXTS</h1><br>
 <table class="table table-bordered">
     <thead>
-      <tr>
+      <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col">Title</th>
-        <th scope="col" style="width: 65%;">Text</th>
-        <th scope="col"></th>Action</th>
+        <th scope="col" style="width: 65%;" colspan="2">Text</th>
+        
       </tr>
     </thead>
     <tbody>
         {% for i in texts %}
         <tr>
           <th>{{ i.id }}</th>
-          <td>{{ i.title }}</td>
+          <td class="font-italic">{{ i.title }}</td>
           <td>{{ i.text[0:160] }}. . .</td>
-          <td><a class="btn btn-outline-info" href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a></td>
+          <td style="width: 15%;"><a class="btn btn-outline-info" href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a></td>
         </tr>
         {% endfor %}
     </tbody>
