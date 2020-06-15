@@ -4,12 +4,12 @@
 <h1 class="text-center , font-italic">{{ i.title }}</h1><br>
 {% endfor %}
 <h2 class="font-weight-light">EDIT WORDS</h2>
-<table class="table table-bordered" style="width: 80%">
+<table class="table table-bordered" style="width: 100%">
     <thead>
       <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col" style="width: 40%;">Token</th>
-        <th scope="col">Pos</th>
+        <th scope="col" style="width: 20%;">Pos</th>
         <th scope="col">Edit</th>
 
       </tr>
@@ -24,7 +24,7 @@
             
             <form action="{{ url_for('update_pos', words_id=i.id) }}" method="POST">
                 {{ form.csrf_token }}
-                {{ form.edit(class="btn btn-primary dropdown-toggle") }}
+                {{ form.edit(class="btn btn-outline-info dropdown-toggle") }}
                 <input type="submit" class="btn btn-outline-info" value="Edit">
             </form>
           </td>
