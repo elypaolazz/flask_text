@@ -3,7 +3,7 @@
 
 Enter the folowing command in your terminal:
 
-
+$ git clone https://github.com/elypaolazz/flask_text.git
 
 $ python3 -m venv
 
