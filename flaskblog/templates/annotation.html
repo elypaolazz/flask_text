@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="text-center , font-italic">{{ title }}</h1><br>
+<h2 class="font-weight-light">AUTOMATIC ANNOTATION</h2>
+<!-- <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button> -->
+{% for s in sent %}
+<small class="font-italic"><b>Sentence {{ s.id }}</b></small>
+<table class="table table-bordered">
+    <thead>
+      <tr class="table-active">
+        <th scope="col">ID</th>
+        <th scope="col" style="width: 72%;">Token</th>
+        <th scope="col" colspan="2">POS</th>
+        <th scope="col">Edit</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in s.word %}
+        <tr>
+          <th>{{ i.id }}</th>
+          <td>{{ i.word }}</td>
+          <td>{{ i.pos }}</td>
+          <td></td>
+          <td>
+            
+            <form action="{{ url_for('update_pos_ann', words_id=i.id) }}" method="POST">
+                {{ form.csrf_token }}
+                {{ form.edit(class="btn btn-warning dropdown-toggle") }}
+                <input type="submit" class="btn btn-outline-primary" value="Edit">
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% endblock content %}
