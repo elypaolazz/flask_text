@@ -11,36 +11,37 @@ import nltk
 from nltk.tokenize import sent_tokenize
 from flaskblog.italian_resources import tools_ita
 
-labels = [
-    'JAN', 'FEB', 'MAR', 'APR',
-    'MAY', 'JUN', 'JUL', 'AUG',
-    'SEP', 'OCT', 'NOV', 'DEC'
-]
-
-values = [
-    967.67, 1190.89, 1079.75, 1349.19,
-    2328.91, 2504.28, 2873.83, 4764.87,
-    4349.29, 6458.30, 9907, 16297
-]
-
-colors = [
-    "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-    "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-    "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-
 
 @app.route("/")
 @app.route("/home")
 def home(): 
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    return render_template('home.html', posts=posts)
-
-
-@app.route("/about")
-def about():
-    return render_template('about.html', title='Input text')  
+    # page = request.args.get('page', 1, type=int)
+    # posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    # return render_template('home.html', posts=posts)
     
+    texts = Texts.query.order_by(Texts.id.desc())
+    return render_template('view_text.html', title='Home', texts=texts, legend='View text')
+
+@app.route("/annotation/<int:texts_id>")
+def annotation(texts_id):
+    text = Texts.query.get_or_404(texts_id)
+    sent = Sent.query.filter_by(owner=text)
+    form = Edit_words()
+    return render_template('annotation.html', title=text.title, text=text, sent=sent, form=form)
+    
+@app.route("/annotation/<int:words_id>/update", methods=['GET', 'POST'])
+def update_pos_ann(words_id):
+    words = Words.query.get_or_404(words_id)
+    form = Edit_words()
+    if form.validate_on_submit(): 
+        print(words.word)
+        words.pos = form.edit.data
+        db.session.commit()
+        flash('Pos has been updated!', 'success')
+        return redirect(url_for('annotation', texts_id=words.sentowner.owner_id, words_id=words.id, sent_id=words.sentowner.id))
+    elif request.method == 'GET':
+        form.edit.data = words.pos
+    return render_template('annotation.html', title='Words', texts_id=words.sentowner.owner, sent=sent, words=words, form=form)
 
 @app.route("/input_text", methods=['GET', 'POST'])
 def input_text():

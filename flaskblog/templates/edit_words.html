@@ -24,8 +24,8 @@
             
             <form action="{{ url_for('update_pos', words_id=i.id) }}" method="POST">
                 {{ form.csrf_token }}
-                {{ form.edit(class="btn btn-outline-info dropdown-toggle") }}
-                <input type="submit" class="btn btn-outline-info" value="Edit">
+                {{ form.edit(class="btn btn-warning dropdown-toggle") }}
+                <input type="submit" class="btn btn-outline-primary" value="Edit">
             </form>
           </td>
         </tr>

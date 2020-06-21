@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1 class="text-center">TEXTS</h1><br>
+<h1 class="text-center">TEXTS</h1>
+<div class="text-right">
+  <a class="btn btn-primary" href="{{ url_for('input_text') }}">Add a new text</a>
+</div>
+<br>
 <table class="table table-bordered">
     <thead>
       <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col">Title</th>
-        <th scope="col" style="width: 65%;" colspan="2">Text</th>
-        
+        <th scope="col" style="width: 65%;">Text</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +20,9 @@
           <th>{{ i.id }}</th>
           <td class="font-italic">{{ i.title }}</td>
           <td>{{ i.text[0:160] }}. . .</td>
-          <td style="width: 15%;"><a class="btn btn-outline-info" href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a></td>
+          <td style="width: 30%;"><a class="btn btn-outline-primary"  href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a>
+            <a class="btn btn-outline-primary"  href="{{ url_for('annotation', texts_id=i.id) }}">View annotation</a>
+          </td>
         </tr>
         {% endfor %}
     </tbody>
