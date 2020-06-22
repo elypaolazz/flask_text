@@ -3,15 +3,11 @@
 {% for i in text %}
 <h1 class="text-center , font-italic">{{ i.title }}</h1><br>
 {% endfor %}
-<h2 class="font-weight-light">WORDS</h2>
-<div class="text-right">
-  <a class="btn btn-warning" href="{{ url_for('edit_words', sent_id=sent.id) }}">Edit</a>
-</div>
-<br>
+<h2 class="font-weight-light">WORDS<a class="btn btn-warning float-right" href="{{ url_for('edit_words', sent_id=sent.id) }}">Edit</a></h2>
 <table class="table table-bordered" style="width: 100%">
     <thead>
       <tr class="table-active">
-        <th scope="col">ID</th>
+        <th scope="col" style="width: 8%;">ID</th>
         <th scope="col">Token</th>
         <th scope="col">Pos</th>
       </tr>
@@ -21,7 +17,7 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.word }}</td>
-          <td>{{ i.pos }}</td>
+          <td><b>{{ i.pos }}</b></td>
         </tr>
         {% endfor %}
     </tbody>

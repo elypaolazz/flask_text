@@ -10,7 +10,7 @@
       <tr class="table-active">
         <th scope="col">ID</th>
         <th scope="col" style="width: 72%;">Token</th>
-        <th scope="col" colspan="2">POS</th>
+        <th scope="col">POS</th>
         <th scope="col">Edit</th>
         
       </tr>
@@ -20,10 +20,9 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.word }}</td>
-          <td>{{ i.pos }}</td>
-          <td></td>
+          <td><b>{{ i.pos }}</b></td>
+       
           <td>
-            
             <form action="{{ url_for('update_pos_ann', words_id=i.id) }}" method="POST">
                 {{ form.csrf_token }}
                 {{ form.edit(class="btn btn-warning dropdown-toggle") }}

@@ -1,16 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1 class="text-center">TEXTS</h1>
+{% if current_user.is_authenticated %}
 <div class="text-right">
   <a class="btn btn-primary" href="{{ url_for('input_text') }}">Add a new text</a>
 </div>
+{% endif %}
 <br>
 <table class="table table-bordered">
     <thead>
       <tr class="table-active">
         <th scope="col">ID</th>
-        <th scope="col">Title</th>
-        <th scope="col" style="width: 65%;">Text</th>
+        <th scope="col" style="width: 15%;">Title</th>
+        <th scope="col" style="width: 56%;">Text</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -21,7 +23,7 @@
           <td class="font-italic">{{ i.title }}</td>
           <td>{{ i.text[0:160] }}. . .</td>
           <td style="width: 30%;"><a class="btn btn-outline-primary"  href="{{ url_for('sent', texts_id=i.id) }}">View sentences</a>
-            <a class="btn btn-outline-primary"  href="{{ url_for('annotation', texts_id=i.id) }}">View annotation</a>
+            <a class="btn btn-warning"  href="{{ url_for('annotation', texts_id=i.id) }}">View annotation</a>
           </td>
         </tr>
         {% endfor %}

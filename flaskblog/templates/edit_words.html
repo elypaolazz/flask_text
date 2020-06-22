@@ -7,9 +7,9 @@
 <table class="table table-bordered" style="width: 100%">
     <thead>
       <tr class="table-active">
-        <th scope="col">ID</th>
-        <th scope="col" style="width: 40%;">Token</th>
-        <th scope="col" style="width: 20%;">Pos</th>
+        <th scope="col" style="width: 8%;">ID</th>
+        <th scope="col" style="width: 50%;">Token</th>
+        <th scope="col" style="width: 25%;">Pos</th>
         <th scope="col">Edit</th>
 
       </tr>
@@ -19,7 +19,7 @@
         <tr>
           <th>{{ i.id }}</th>
           <td>{{ i.word }}</td>
-          <td>{{ i.pos }}</td>
+          <td><b>{{ i.pos }}</b></td>
           <td>
             
             <form action="{{ url_for('update_pos', words_id=i.id) }}" method="POST">

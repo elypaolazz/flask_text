@@ -46,7 +46,7 @@ class Post(db.Model):
 class Texts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    text = db.Column(db.Text, nullable=False)
+    text = db.Column(db.Text(10000), nullable=False)
     sentences = db.relationship('Sent', backref='owner', lazy=True)
 
     def __repr__(self):

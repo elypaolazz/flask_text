@@ -67,8 +67,8 @@ def input_text():
                 db.session.add(word)
                 db.session.commit()
             
-        flash('You insert a text!', 'succes')
-        return redirect(url_for('view_text'))
+            flash('You insert a text!', 'success')
+            return redirect(url_for('home'))
     return render_template('input_text.html', title='Input text', form=form, legend='Input text')
 
 @app.route("/view_text", methods=['GET', 'POST'])
@@ -198,7 +198,7 @@ def new_post():
         post = Post(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post has been created', 'succes')
+        flash('Your post has been created', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New post', form=form, legend='New Post')
 

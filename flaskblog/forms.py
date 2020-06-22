@@ -67,8 +67,8 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Reset Password')
 
 class Input_textForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
-    text = TextAreaField('Content', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired(), Length(min=1, max=200)])
+    text = TextAreaField('Content', validators=[DataRequired(), Length(min=1, max=10000)])
     submit = SubmitField('Done')
 
 

@@ -4,7 +4,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
+                <legend><h2 class="font-weight-light">Registration</h2></legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
@@ -58,8 +58,8 @@
                     {% endif %}
                 </div>
             </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-primary")}}
+            <div class="form-group , text-right">
+                {{ form.submit(class="btn btn-primary")}}
             </div>
         </form>
     </div>
