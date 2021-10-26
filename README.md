@@ -1,5 +1,5 @@
 # flask_text
-# Flask App for tokenize and POS tagging
+# Flask App for tokenization and POS tagging
 
 Enter the folowing command in your terminal:
 
